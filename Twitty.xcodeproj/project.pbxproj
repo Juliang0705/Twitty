@@ -12,9 +12,15 @@
 		38960AA31C697D68009A5ACB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38960AA11C697D68009A5ACB /* Main.storyboard */; };
 		38960AA51C697D68009A5ACB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38960AA41C697D68009A5ACB /* Assets.xcassets */; };
 		38960AA81C697D68009A5ACB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38960AA61C697D68009A5ACB /* LaunchScreen.storyboard */; };
+		38960AB41C69842A009A5ACB /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38960AB31C69842A009A5ACB /* TwitterClient.swift */; };
+		38960ABC1C699C66009A5ACB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38960ABB1C699C66009A5ACB /* User.swift */; };
+		38960ABE1C699C77009A5ACB /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38960ABD1C699C77009A5ACB /* Tweet.swift */; };
+		38960AC01C69B02D009A5ACB /* TweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38960ABF1C69B02D009A5ACB /* TweetViewController.swift */; };
+		B98E344AE0900070BBFA1D55 /* Pods_Twitty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B57CC056D9CF8B6805B86 /* Pods_Twitty.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1254E036F0A03AFFB8FC6E31 /* Pods-Twitty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitty/Pods-Twitty.debug.xcconfig"; sourceTree = "<group>"; };
 		38960A9A1C697D68009A5ACB /* Twitty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38960A9D1C697D68009A5ACB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38960A9F1C697D68009A5ACB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +28,13 @@
 		38960AA41C697D68009A5ACB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38960AA71C697D68009A5ACB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38960AA91C697D68009A5ACB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38960AB31C69842A009A5ACB /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
+		38960AB71C698BF8009A5ACB /* Twitty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Twitty-Bridging-Header.h"; sourceTree = "<group>"; };
+		38960ABB1C699C66009A5ACB /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		38960ABD1C699C77009A5ACB /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		38960ABF1C69B02D009A5ACB /* TweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetViewController.swift; sourceTree = "<group>"; };
+		680B57CC056D9CF8B6805B86 /* Pods_Twitty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twitty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3E4ADBB61635A29B14FA62 /* Pods-Twitty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitty/Pods-Twitty.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B98E344AE0900070BBFA1D55 /* Pods_Twitty.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +54,8 @@
 			children = (
 				38960A9C1C697D68009A5ACB /* Twitty */,
 				38960A9B1C697D68009A5ACB /* Products */,
+				AD7FCFBFCB63AFA5C53C84EE /* Pods */,
+				F26B922659185F95A2A6F575 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +70,52 @@
 		38960A9C1C697D68009A5ACB /* Twitty */ = {
 			isa = PBXGroup;
 			children = (
+				38960ABA1C699C56009A5ACB /* Model */,
+				38960AB21C6983CD009A5ACB /* API */,
 				38960A9D1C697D68009A5ACB /* AppDelegate.swift */,
+				38960ABF1C69B02D009A5ACB /* TweetViewController.swift */,
 				38960A9F1C697D68009A5ACB /* ViewController.swift */,
 				38960AA11C697D68009A5ACB /* Main.storyboard */,
 				38960AA41C697D68009A5ACB /* Assets.xcassets */,
 				38960AA61C697D68009A5ACB /* LaunchScreen.storyboard */,
 				38960AA91C697D68009A5ACB /* Info.plist */,
+				38960AB71C698BF8009A5ACB /* Twitty-Bridging-Header.h */,
 			);
 			path = Twitty;
+			sourceTree = "<group>";
+		};
+		38960AB21C6983CD009A5ACB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				38960AB31C69842A009A5ACB /* TwitterClient.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		38960ABA1C699C56009A5ACB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				38960ABB1C699C66009A5ACB /* User.swift */,
+				38960ABD1C699C77009A5ACB /* Tweet.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		AD7FCFBFCB63AFA5C53C84EE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1254E036F0A03AFFB8FC6E31 /* Pods-Twitty.debug.xcconfig */,
+				AC3E4ADBB61635A29B14FA62 /* Pods-Twitty.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F26B922659185F95A2A6F575 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				680B57CC056D9CF8B6805B86 /* Pods_Twitty.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +125,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38960AAC1C697D68009A5ACB /* Build configuration list for PBXNativeTarget "Twitty" */;
 			buildPhases = (
+				CA19426D7555C032A48CB42B /* Check Pods Manifest.lock */,
 				38960A961C697D68009A5ACB /* Sources */,
 				38960A971C697D68009A5ACB /* Frameworks */,
 				38960A981C697D68009A5ACB /* Resources */,
+				1332CD3301D92EDF0D607947 /* Embed Pods Frameworks */,
+				F325F37B10F2C272D70FD3FA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,12 +188,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1332CD3301D92EDF0D607947 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Twitty/Pods-Twitty-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA19426D7555C032A48CB42B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F325F37B10F2C272D70FD3FA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Twitty/Pods-Twitty-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		38960A961C697D68009A5ACB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38960ABC1C699C66009A5ACB /* User.swift in Sources */,
+				38960ABE1C699C77009A5ACB /* Tweet.swift in Sources */,
+				38960AC01C69B02D009A5ACB /* TweetViewController.swift in Sources */,
 				38960AA01C697D68009A5ACB /* ViewController.swift in Sources */,
+				38960AB41C69842A009A5ACB /* TwitterClient.swift in Sources */,
 				38960A9E1C697D68009A5ACB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,23 +355,30 @@
 		};
 		38960AAD1C697D68009A5ACB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1254E036F0A03AFFB8FC6E31 /* Pods-Twitty.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Twitty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Juliang.Twitty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Twitty/Twitty-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		38960AAE1C697D68009A5ACB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC3E4ADBB61635A29B14FA62 /* Pods-Twitty.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Twitty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Juliang.Twitty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Twitty/Twitty-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -285,6 +401,7 @@
 				38960AAE1C697D68009A5ACB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
