@@ -19,6 +19,11 @@ class User: NSObject{
     var profileImageUrl: String?
     var tagline: String?
     var dictionary: NSDictionary
+    //add my thing
+    var favourites_count: Int?
+    var followers_count: Int?
+    var location: String?
+    var profile_background_image_url_https: String?
     
     
     init(dictionary: NSDictionary){
@@ -27,6 +32,10 @@ class User: NSObject{
         screenname = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
         tagline = dictionary["description"] as? String
+        favourites_count = dictionary["favourites_count"] as? Int
+        followers_count = dictionary["followers_count"] as? Int
+        location = dictionary["location"] as? String
+        profile_background_image_url_https = dictionary["profile_background_image_url_https"] as? String
     }
     
     func logout(){
