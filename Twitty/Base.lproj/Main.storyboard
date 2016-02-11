@@ -28,18 +28,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="IB9-ru-5dj"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <segue destination="B65-AJ-hx8" kind="show" id="Nse-Eu-fFF"/>
+                        <segue destination="Ah2-tu-M0O" kind="show" identifier="login" id="h9g-I0-roJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="547" y="250"/>
         </scene>
-        <!--Tweet View Controller-->
+        <!--Twitty-->
         <scene sceneID="dIH-zh-QP6">
             <objects>
-                <viewController storyboardIdentifier="TweetViewController" id="B65-AJ-hx8" customClass="TweetViewController" customModule="Twitty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="B65-AJ-hx8" customClass="TweetViewController" customModule="Twitty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2VG-AK-IjQ"/>
                         <viewControllerLayoutGuide type="bottom" id="nTX-ZM-S67"/>
@@ -49,11 +51,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="151" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lZn-kM-O21">
-                                <rect key="frame" x="0.0" y="59" width="414" height="677"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tweetCell" rowHeight="151" id="eUe-9Y-hTY" customClass="TweetTableViewCell" customModule="Twitty" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="151"/>
+                                        <rect key="frame" x="0.0" y="92" width="414" height="151"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eUe-9Y-hTY" id="V3D-P4-PxD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="150.5"/>
@@ -162,39 +164,46 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dzN-04-DNi">
-                                <rect key="frame" x="0.0" y="15" width="414" height="44"/>
-                                <items>
-                                    <navigationItem title="Twitty" id="ehb-Ob-WQP">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" id="i67-ed-RTa"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" id="AsR-sM-6GC"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lZn-kM-O21" firstAttribute="top" secondItem="dzN-04-DNi" secondAttribute="bottom" id="2a4-D6-sqN"/>
-                            <constraint firstAttribute="trailing" secondItem="lZn-kM-O21" secondAttribute="trailing" id="4o5-54-Od7"/>
-                            <constraint firstItem="dzN-04-DNi" firstAttribute="top" secondItem="6Aa-kv-Jeq" secondAttribute="top" constant="15" id="MxV-If-b6K"/>
-                            <constraint firstItem="lZn-kM-O21" firstAttribute="leading" secondItem="6Aa-kv-Jeq" secondAttribute="leading" id="d8t-Ic-VsK"/>
-                            <constraint firstItem="dzN-04-DNi" firstAttribute="leading" secondItem="6Aa-kv-Jeq" secondAttribute="leading" id="enl-Bb-vDb"/>
-                            <constraint firstItem="nTX-ZM-S67" firstAttribute="top" secondItem="lZn-kM-O21" secondAttribute="bottom" id="rym-H7-baA"/>
-                            <constraint firstAttribute="trailing" secondItem="dzN-04-DNi" secondAttribute="trailing" id="ydw-tW-Z4b"/>
+                            <constraint firstItem="lZn-kM-O21" firstAttribute="top" secondItem="6Aa-kv-Jeq" secondAttribute="top" id="BHN-Z1-O5E"/>
+                            <constraint firstItem="nTX-ZM-S67" firstAttribute="top" secondItem="lZn-kM-O21" secondAttribute="bottom" id="VUV-ao-vCH"/>
+                            <constraint firstAttribute="trailing" secondItem="lZn-kM-O21" secondAttribute="trailing" id="jA5-hI-ddx"/>
+                            <constraint firstItem="lZn-kM-O21" firstAttribute="leading" secondItem="6Aa-kv-Jeq" secondAttribute="leading" id="qAw-Cz-H0I"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="sYa-ny-L4u"/>
+                    <navigationItem key="navigationItem" title="Twitty" id="sYa-ny-L4u">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="mmY-rn-u4c"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="way-kN-958"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="leftbarItem" destination="i67-ed-RTa" id="kHf-mk-z9W"/>
-                        <outlet property="navigationBar" destination="dzN-04-DNi" id="SRA-Fh-2L9"/>
-                        <outlet property="rightBarItem" destination="AsR-sM-6GC" id="JHT-dJ-2Mi"/>
                         <outlet property="tableView" destination="lZn-kM-O21" id="3ga-1h-yoN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzv-T4-RBk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="832" y="273"/>
+            <point key="canvasLocation" x="1644" y="273"/>
+        </scene>
+        <!--Tweet View Navigation Controller-->
+        <scene sceneID="55j-Hv-LKd">
+            <objects>
+                <navigationController storyboardIdentifier="TweetViewController" automaticallyAdjustsScrollViewInsets="NO" id="Ah2-tu-M0O" customClass="TweetViewNavigationController" customModule="Twitty" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="B4s-Y6-ZE6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="B65-AJ-hx8" kind="show" identifier="tweetView" id="rhl-Cx-D5A"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="93C-tN-ZMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1094" y="273"/>
         </scene>
     </scenes>
     <resources>

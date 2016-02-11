@@ -7,14 +7,23 @@
 //
 
 import UIKit
+extension UIImage{
+    func resizeImage(width width: CGFloat, height: CGFloat) -> UIImage {
+        //UIGraphicsBeginImageContext(newSize);
+        // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+        // Pass 1.0 to force exact pixel size.
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), false, 0.0)
+        self.drawInRect(CGRectMake(0, 0, width, height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+}
 
 class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var leftbarItem: UIBarButtonItem!
-    @IBOutlet weak var rightBarItem: UIBarButtonItem!
-    @IBOutlet weak var navigationBar: UINavigationBar!
+
     var tweets:[Tweet]?
     
     override func viewDidLoad() {
@@ -28,8 +37,9 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
             self.tweets = tweets
             self.tableView.reloadData()
         });
-        navigationBar.topItem?.titleView = UIImageView(image: UIImage(named: "bird"))
-        leftbarItem.image = UIImage(named:"more")
+        navigationItem.titleView = UIImageView(image: UIImage(named: "bird"))
+        navigationItem.leftBarButtonItem?.image = UIImage(named: "more")
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,7 +73,6 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
             return String(minute) + "m"
         }
     }
-    
     
     
     
