@@ -20,11 +20,9 @@ class Tweet: NSObject{
     var retweet_count: Int?
     var retweeted: Int?
     
-    
-    
-    
-    
-    
+    var tweetID: String?
+    var hasRetweeted = false
+    var hasFavorated = false
     
     init(dictionary: NSDictionary){
         self.dictionary = dictionary
@@ -39,6 +37,9 @@ class Tweet: NSObject{
         favorited = dictionary["favorited"] as?Int
         retweet_count = dictionary["retweet_count"] as? Int
         retweeted = dictionary["retweeted"] as? Int
+        tweetID = dictionary["id_str"] as? String
+        hasFavorated = dictionary["favorited"] as! Bool
+        hasRetweeted = dictionary["retweeted"] as! Bool
         
     }
     

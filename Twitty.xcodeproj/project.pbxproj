@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		38541A7C1C6D4C3100691D11 /* TweetViewNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38541A7B1C6D4C3100691D11 /* TweetViewNavigationController.swift */; };
+		387DCFC91C6DAF5B00E12148 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387DCFC81C6DAF5B00E12148 /* InfiniteScrollActivityView.swift */; };
 		38960A9E1C697D68009A5ACB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38960A9D1C697D68009A5ACB /* AppDelegate.swift */; };
 		38960AA01C697D68009A5ACB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38960A9F1C697D68009A5ACB /* ViewController.swift */; };
 		38960AA31C697D68009A5ACB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38960AA11C697D68009A5ACB /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		1254E036F0A03AFFB8FC6E31 /* Pods-Twitty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitty/Pods-Twitty.debug.xcconfig"; sourceTree = "<group>"; };
 		38541A7B1C6D4C3100691D11 /* TweetViewNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetViewNavigationController.swift; sourceTree = "<group>"; };
+		387DCFC81C6DAF5B00E12148 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		38960A9A1C697D68009A5ACB /* Twitty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38960A9D1C697D68009A5ACB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38960A9F1C697D68009A5ACB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 			name = NavigationController;
 			sourceTree = "<group>";
 		};
+		387DCFC71C6DAF4800E12148 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				387DCFC81C6DAF5B00E12148 /* InfiniteScrollActivityView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		38960A911C697D68009A5ACB = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,7 @@
 		38960A9C1C697D68009A5ACB /* Twitty */ = {
 			isa = PBXGroup;
 			children = (
+				387DCFC71C6DAF4800E12148 /* Views */,
 				38541A7E1C6D4CB500691D11 /* NavigationController */,
 				38541A7D1C6D4C3C00691D11 /* ViewController */,
 				38960ABA1C699C56009A5ACB /* Model */,
@@ -263,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				387DCFC91C6DAF5B00E12148 /* InfiniteScrollActivityView.swift in Sources */,
 				38960ABC1C699C66009A5ACB /* User.swift in Sources */,
 				38960ABE1C699C77009A5ACB /* Tweet.swift in Sources */,
 				38960AC01C69B02D009A5ACB /* TweetViewController.swift in Sources */,

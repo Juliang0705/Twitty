@@ -30,6 +30,8 @@ class TweetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var favorateImage: UIImageView!
     
+    var tweet: Tweet?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

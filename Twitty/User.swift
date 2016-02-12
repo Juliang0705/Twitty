@@ -25,6 +25,12 @@ class User: NSObject{
     var location: String?
     var profile_background_image_url_https: String?
     
+    var userDescription: String?
+    var profile_background_color: String?
+    var profile_sidebar_border_color: String?
+    var profile_sidebar_fill_color: String?
+    var profile_text_color: String?
+    var userID: String?
     
     init(dictionary: NSDictionary){
         self.dictionary = dictionary
@@ -36,6 +42,12 @@ class User: NSObject{
         followers_count = dictionary["followers_count"] as? Int
         location = dictionary["location"] as? String
         profile_background_image_url_https = dictionary["profile_background_image_url_https"] as? String
+        userDescription = dictionary["description"] as? String
+        profile_background_color = dictionary["profile_background_color"] as? String
+        profile_sidebar_border_color = dictionary["profile_sidebar_border_color"] as? String
+        profile_sidebar_fill_color = dictionary["profile_sidebar_fill_color"] as? String
+        profile_text_color = dictionary["profile_text_color"] as? String
+        userID = dictionary["id_str"] as? String
     }
     
     func logout(){
