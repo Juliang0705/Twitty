@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate {
+class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SideBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
@@ -16,8 +16,9 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var loadingMoreView:InfiniteScrollActivityView!
     var tweets:[Tweet]?
     var count = 20
-    
-    
+    var sidebar:SideBar!
+    var viewType = 1
+    var searchTerm = ""
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusBarTappedAction:", name: statusBarTappedNotification, object: nil)
@@ -48,6 +49,58 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         navigationItem.leftBarButtonItem?.image = UIImage(named: "more")
         
         setupActivityView()
+        sidebar = SideBar(sourceView: self.view, menuItems: ["Me","Home","Search","Log out"])
+        sidebar.delegate = self
+    }
+    
+    func sideBarDidSelectButtonAtIndex(index:Int){
+        switch index{
+        case 0:// me
+            TwitterClient.sharedInstance.userTimelineWithParams(["user_id":User.currentUser!.userID!], completion: { (tweets, error) -> () in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.sidebar.showSideBar(false)
+                self.viewType = 0
+                self.count = 0
+            })
+            break
+        case 1://home time line
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil,completion: {
+            (tweets,error) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            self.sidebar.showSideBar(false)
+            self.viewType = 1
+            self.count = 0
+        });
+            break
+        case 2://search
+            print("search Clicked")
+            self.sidebar.showSideBar(false)
+            let alert = UIAlertController(title: "Search Tweets", message: "Enter terms", preferredStyle: .Alert)
+            alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            })
+            alert.addAction(UIAlertAction(title: "Search", style: .Default, handler: { (action) -> Void in
+                let textField = alert.textFields![0] as UITextField
+                self.searchTerm = textField.text!
+                TwitterClient.sharedInstance.searchTweetWithParams(["q":self.searchTerm],completion: {
+                    (tweets,error) in
+                    self.tweets = tweets
+                    self.tableView.reloadData()
+                    self.viewType = 2
+                    self.count = 0
+                })
+                
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            break
+        case 3://log out
+            User.currentUser?.logout()
+            break
+        default:
+            break
+        }
         
     }
     
@@ -120,12 +173,26 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         delay(2, closure: {
             self.refreshControl.endRefreshing()
         })
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil,completion: {
-            (tweets,error) in
-            self.tweets = tweets
-            self.tableView.reloadData()
-        });
-
+        if viewType == 0{
+            TwitterClient.sharedInstance.userTimelineWithParams(["user_id":User.currentUser!.userID!,"count":count],completion: {
+                (tweets,error) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+            });
+            
+        }else if viewType == 1{
+            TwitterClient.sharedInstance.homeTimelineWithParams(["count":count],completion: {
+                (tweets,error) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+            });
+        }else if viewType == 2{
+            TwitterClient.sharedInstance.searchTweetWithParams(["q":self.searchTerm],completion: {
+                (tweets,error) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+            })
+        }
         refreshControl.endRefreshing()
     }
     
@@ -245,19 +312,50 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     func loadMoreData(){
-        if (count == 200){
-            self.loadingMoreView.stopAnimating()
-            self.isMoreDataLoading = false
-            return
+        if viewType == 0{
+            if (count == 3200){
+                self.loadingMoreView.stopAnimating()
+                self.isMoreDataLoading = false
+                return
+            }
+            count += 20
+            TwitterClient.sharedInstance.userTimelineWithParams(["user_id":User.currentUser!.userID!,"count":count],completion: {
+                (tweets,error) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.loadingMoreView.stopAnimating()
+                self.isMoreDataLoading = false
+            });
+            
+        }else if viewType == 1{
+            if (count == 200){
+                self.loadingMoreView.stopAnimating()
+                self.isMoreDataLoading = false
+                return
+            }
+            count += 20
+            TwitterClient.sharedInstance.homeTimelineWithParams(["count":count],completion: {
+                (tweets,error) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.loadingMoreView.stopAnimating()
+                self.isMoreDataLoading = false
+            });
+        }else if viewType == 2{
+            if (count == 200){
+                self.loadingMoreView.stopAnimating()
+                self.isMoreDataLoading = false
+                return
+            }
+            count += 20
+            TwitterClient.sharedInstance.searchTweetWithParams(["q":self.searchTerm,"count":count],completion: {
+                (tweets,error) in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.loadingMoreView.stopAnimating()
+                self.isMoreDataLoading = false
+            })
         }
-        count += 20
-        TwitterClient.sharedInstance.homeTimelineWithParams(["count":count],completion: {
-            (tweets,error) in
-            self.tweets = tweets
-            self.tableView.reloadData()
-            self.loadingMoreView.stopAnimating()
-            self.isMoreDataLoading = false
-        });
     }
     
     func statusBarTappedAction(notification: NSNotification) {
@@ -265,6 +363,13 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: NSNotFound, inSection: 0), atScrollPosition: .Top, animated: true)
     }
     
+    @IBAction func moreButtonClicked(sender: UIBarButtonItem) {
+        if sidebar.isSideBarOpen{
+            sidebar.showSideBar(false)
+        }else{
+            sidebar.showSideBar(true)
+        }
+    }
     
 //    @IBAction func LogoutClicked(sender: AnyObject) {
 //        User.currentUser?.logout()

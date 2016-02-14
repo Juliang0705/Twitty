@@ -97,7 +97,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     func favoratedWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
-        TwitterClient.sharedInstance.POST("https://api.twitter.com/1.1/favorites/create.json?id=\(tweetID)", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+        TwitterClient.sharedInstance.POST("1.1/favorites/create.json?id=\(tweetID)", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
             completion(response: response as? NSDictionary,error: nil)
             })
             { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
@@ -106,7 +106,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     func unFavoratedWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
-        TwitterClient.sharedInstance.POST("https://api.twitter.com/1.1/favorites/destroy.json?id=\(tweetID)", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+        TwitterClient.sharedInstance.POST("1.1/favorites/destroy.json?id=\(tweetID)", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
             completion(response: response as? NSDictionary,error: nil)
             })
             { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
@@ -114,6 +114,51 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    
+    func sendTweet(tweet: String, params: NSDictionary?, completion: (response: NSDictionary?,error :NSError?)->()) {
+        var parameters = [String: AnyObject]()
+        parameters["status"] = tweet
+        if let params = params{
+            for (key,value) in params{
+                parameters[key as! String] = value
+            }
+        }
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+            
+                completion(response: response as? NSDictionary,error: nil)
 
+            }) { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                
+                completion(response: nil,error: error)
+        }
+        
+    }
+    
+    func userTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) ->()){
+        TwitterClient.sharedInstance.GET("1.1/statuses/user_timeline.json", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+            let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+            
+            completion(tweets: tweets, error: nil)
+            
+            }, failure: { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                
+                print("error getting current user's tweets\n\(error)")
+                completion(tweets: nil, error: error)
+        })
+    }
+
+    func searchTweetWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) ->()){
+        TwitterClient.sharedInstance.GET("1.1/search/tweets.json", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+            let status = ((response as! NSDictionary)["statuses"] as! [NSDictionary])
+            let tweets = Tweet.tweetsWithArray(status)
+
+            completion(tweets: tweets, error: nil)
+            
+            }, failure: { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                
+                print("error getting current user's tweets\n\(error)")
+                completion(tweets: nil, error: error)
+        })
+    }
+
+    
 }

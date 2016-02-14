@@ -10,11 +10,14 @@ import UIKit
 
 
 
-class ViewController: UIViewController {
+class ViewController:UIViewController {
 
+    @IBOutlet weak var LoginButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        LoginButton.layer.cornerRadius = 10
     }
 
     override func didReceiveMemoryWarning() {
