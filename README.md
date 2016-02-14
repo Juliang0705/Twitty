@@ -21,7 +21,7 @@ The following **optional** features are implemented:
 - [x] User can pull to refresh.
 
 The following **additional** features are implemented:
-
+- [x] User can tap status bar to scroll to top
 - [x] User can post tweets
 - [x] Tweet has background image based on sender's preference
 - [x] User can view its own tweets
