@@ -22,6 +22,7 @@ class User: NSObject{
     //add my thing
     var favourites_count: Int?
     var followers_count: Int?
+    var following_count: Int?
     var location: String?
     var profile_background_image_url_https: String?
     
@@ -40,6 +41,7 @@ class User: NSObject{
         tagline = dictionary["description"] as? String
         favourites_count = dictionary["favourites_count"] as? Int
         followers_count = dictionary["followers_count"] as? Int
+        following_count = dictionary["friends_count"] as? Int
         location = dictionary["location"] as? String
         profile_background_image_url_https = dictionary["profile_background_image_url_https"] as? String
         userDescription = dictionary["description"] as? String

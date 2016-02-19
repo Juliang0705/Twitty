@@ -8,6 +8,19 @@
 
 import UIKit
 
+func convertTimeToString(number: Int) -> String{
+    let day = number/86400
+    let hour = (number - day * 86400)/3600
+    let minute = (number - day * 86400 - hour * 3600)/60
+    if day != 0{
+        return String(day) + "d"
+    }else if hour != 0 {
+        return String(hour) + "h"
+    }else{
+        return String(minute) + "m"
+    }
+}
+
 class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SideBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
@@ -153,21 +166,13 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         
         cell.selectionStyle = .None
         
+        let userProfileTapAction = UITapGestureRecognizer(target: self, action: "profileTap:")
+        cell.profileImage.tag = indexPath.row
+        cell.profileImage.userInteractionEnabled = true
+        cell.profileImage.addGestureRecognizer(userProfileTapAction)
+        
         return cell
     }
-    func convertTimeToString(number: Int) -> String{
-        let day = number/86400
-        let hour = (number - day * 86400)/3600
-        let minute = (number - day * 86400 - hour * 3600)/60
-        if day != 0{
-            return String(day) + "d"
-        }else if hour != 0 {
-            return String(hour) + "h"
-        }else{
-            return String(minute) + "m"
-        }
-    }
-    
     
     func onRefresh(){
         delay(2, closure: {
@@ -277,7 +282,16 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
 
     }
-    
+    func profileTap(sender: UITapGestureRecognizer){
+        if sender.state != .Ended{
+            return
+        }
+        let index = sender.view?.tag
+        if let index = index{
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! TweetTableViewCell
+            self.performSegueWithIdentifier("UserView", sender: cell);
+        }
+    }
     
     func setupActivityView(){
         let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
@@ -375,14 +389,15 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
 //        User.currentUser?.logout()
 //    }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let cell = sender as? TweetTableViewCell {
+            let detailViewController = segue.destinationViewController as! UserViewController
+            detailViewController.user = cell.tweet?.user
+        }
     }
-    */
 
 }

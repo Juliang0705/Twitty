@@ -159,6 +159,27 @@ class TwitterClient: BDBOAuth1SessionManager {
                 completion(tweets: nil, error: error)
         })
     }
-
+    
+    func followUserWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) ->()){
+        TwitterClient.sharedInstance.POST("1.1/friendships/create.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+            
+            completion(response: response as? NSDictionary,error: nil)
+            
+            }) { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                
+                completion(response: nil,error: error)
+        }
+    }
+    
+    func unFollowUserWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) ->()){
+        TwitterClient.sharedInstance.POST("1.1/friendships/destroy.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+            
+            completion(response: response as? NSDictionary,error: nil)
+            
+            }) { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                
+                completion(response: nil,error: error)
+        }
+    }
     
 }
