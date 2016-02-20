@@ -34,6 +34,9 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var searchTerm = ""
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if (tableView.delegate != nil){
+         //   self.onRefresh()
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusBarTappedAction:", name: statusBarTappedNotification, object: nil)
     }
     
@@ -64,18 +67,24 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         setupActivityView()
         sidebar = SideBar(sourceView: self.view, menuItems: ["Me","Home","Search","Log out"])
         sidebar.delegate = self
+        
+        let backgroundView = UIView(frame: tableView.bounds)
+        backgroundView.backgroundColor = UIColor(red: 242.0 / 255.0, green: 246.0 / 255.0, blue: 249.0 / 255.0, alpha: 1)
+        self.tableView.backgroundView = backgroundView
+        
     }
     
     func sideBarDidSelectButtonAtIndex(index:Int){
         switch index{
         case 0:// me
-            TwitterClient.sharedInstance.userTimelineWithParams(["user_id":User.currentUser!.userID!], completion: { (tweets, error) -> () in
+            /*TwitterClient.sharedInstance.userTimelineWithParams(["user_id":User.currentUser!.userID!], completion: { (tweets, error) -> () in
                 self.tweets = tweets
                 self.tableView.reloadData()
                 self.sidebar.showSideBar(false)
                 self.viewType = 0
                 self.count = 0
-            })
+            })*/
+            self.performSegueWithIdentifier("UserView", sender: self);
             break
         case 1://home time line
         TwitterClient.sharedInstance.homeTimelineWithParams(nil,completion: {
@@ -170,6 +179,12 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         cell.profileImage.tag = indexPath.row
         cell.profileImage.userInteractionEnabled = true
         cell.profileImage.addGestureRecognizer(userProfileTapAction)
+        
+        //set up the tweet tap
+        let tweetTapAction = UITapGestureRecognizer(target: self, action: "tweetTap:")
+        cell.userInteractionEnabled = true
+        cell.tag = indexPath.row
+        cell.addGestureRecognizer(tweetTapAction)
         
         return cell
     }
@@ -293,6 +308,17 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
     }
     
+    func tweetTap(sender: UITapGestureRecognizer){
+        if sender.state != .Ended{
+            return
+        }
+        let index = sender.view?.tag
+        if let index = index{
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! TweetTableViewCell
+            self.performSegueWithIdentifier("DetailTweet", sender: cell)
+        }
+    }
+    
     func setupActivityView(){
         let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
@@ -395,9 +421,20 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let cell = sender as? TweetTableViewCell {
-            let detailViewController = segue.destinationViewController as! UserViewController
-            detailViewController.user = cell.tweet?.user
+            if let userViewController = segue.destinationViewController as? UserViewController{
+                userViewController.user = cell.tweet?.user
+                print("user View")
+            }
+            if let detailViewController = segue.destinationViewController as? DetailTweetViewController{
+                detailViewController.tweet = tweets![tableView.indexPathForCell(cell)!.row]
+                print("detail View")
+            }
+        }else {
+            if let userViewController = segue.destinationViewController as? UserViewController{
+                userViewController.user = User.currentUser!
+            }
         }
+        
     }
 
 }

@@ -11,12 +11,12 @@ import UIKit
 class SendTweetViewController: UIViewController,UITextViewDelegate {
 
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var textCountLabel: UILabel!
-    @IBOutlet weak var sendButton: UIBarButtonItem!
-    
+    var countLabel: UILabel?
+    var defaultText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        textCountLabel.text = "Characters remained:  140"
+        textView.text = defaultText
+        setUpSendButtonAndTextCount()
         textView.layer.backgroundColor = UIColor.clearColor().CGColor
         textView.layer.borderColor = UIColor(red: 70/255.0, green: 154/255.0, blue: 233/255.0, alpha: 0.9).CGColor
         textView.layer.borderWidth = 0.5
@@ -24,17 +24,17 @@ class SendTweetViewController: UIViewController,UITextViewDelegate {
         textView.becomeFirstResponder()
         self.automaticallyAdjustsScrollViewInsets = false
         textView.delegate = self
+        self.navigationController?.navigationBar.topItem?.title = "";
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         let newLength:Int = (textView.text as NSString).length + (text as NSString).length - range.length
         let remainingChar:Int = 140 - newLength
-        textCountLabel.text = "Characters remained: \(remainingChar)"
-        
+        countLabel?.text = "\(remainingChar)"
         return (newLength < 140)
     }
     
-    @IBAction func sendButtonClicked(sender: UIBarButtonItem) {
+    func sendButtonClicked(sender: UIBarButtonItem) {
         TwitterClient.sharedInstance.sendTweet(textView.text, params: nil) { (response, error) -> () in
             if (error == nil){
                 self.navigationController?.popViewControllerAnimated(true)
@@ -46,14 +46,17 @@ class SendTweetViewController: UIViewController,UITextViewDelegate {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func setUpSendButtonAndTextCount(){
+        let textCountLabel = UIBarButtonItem(title: "140", style: .Plain, target: nil, action: nil)
+        textCountLabel.enabled = false
+        self.countLabel = UILabel(frame: CGRectMake(0,0,50,16))
+        countLabel?.text = String(140 - textView.text.characters.count)
+        countLabel?.sizeToFit()
+        textCountLabel.customView = countLabel
+        let sendButton = UIBarButtonItem(title: "Send", style: .Plain, target: self, action: "sendButtonClicked:")
+        self.navigationItem.rightBarButtonItems = [sendButton,textCountLabel]
+        
+        
     }
-    */
 
 }

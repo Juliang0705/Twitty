@@ -160,8 +160,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func followUserWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) ->()){
-        TwitterClient.sharedInstance.POST("1.1/friendships/create.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+    func followUserWithParams(params: NSDictionary?, completion: (response: NSDictionary?, error: NSError?) ->()){
+        TwitterClient.sharedInstance.POST("1.1/friendships/create.json", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
             
             completion(response: response as? NSDictionary,error: nil)
             
@@ -171,8 +171,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func unFollowUserWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) ->()){
-        TwitterClient.sharedInstance.POST("1.1/friendships/destroy.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
+    func unFollowUserWithParams(params: NSDictionary?, completion: (response: NSDictionary?, error: NSError?) ->()){
+        TwitterClient.sharedInstance.POST("1.1/friendships/destroy.json", parameters: params, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
             
             completion(response: response as? NSDictionary,error: nil)
             

@@ -32,6 +32,7 @@ class User: NSObject{
     var profile_sidebar_fill_color: String?
     var profile_text_color: String?
     var userID: String?
+    var following: Bool?
     
     init(dictionary: NSDictionary){
         self.dictionary = dictionary
@@ -50,6 +51,7 @@ class User: NSObject{
         profile_sidebar_fill_color = dictionary["profile_sidebar_fill_color"] as? String
         profile_text_color = dictionary["profile_text_color"] as? String
         userID = dictionary["id_str"] as? String
+        following = dictionary["following"] as? Bool
     }
     
     func logout(){

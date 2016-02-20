@@ -18,11 +18,14 @@ class Tweet: NSObject{
     var favorite_count: Int?
     var favorited: Int?
     var retweet_count: Int?
-    var retweeted: Int?
+    var retweeted: Bool?
     
     var tweetID: String?
     var hasRetweeted = false
     var hasFavorated = false
+    var in_reply_to_screen_name: String?
+    var mediaUrl: String?
+    var isRetweeted = false
     
     init(dictionary: NSDictionary){
         self.dictionary = dictionary
@@ -37,10 +40,18 @@ class Tweet: NSObject{
         favorite_count = retweetedStatus != nil ? retweetedStatus!["favorite_count"] as? Int : dictionary["favorite_count"] as? Int
         favorited = dictionary["favorited"] as?Int
         retweet_count = dictionary["retweet_count"] as? Int
-        retweeted = dictionary["retweeted"] as? Int
+        retweeted = dictionary["retweeted"] as? Bool
         tweetID = dictionary["id_str"] as? String
         hasFavorated = dictionary["favorited"] as! Bool
         hasRetweeted = dictionary["retweeted"] as! Bool
+        in_reply_to_screen_name = dictionary["in_reply_to_screen_name"] as? String
+        //result->entities->media[0]->media_url;
+        let entities = dictionary["entities"] as? NSDictionary
+        let firstDictionary = (entities?["media"] as? [NSDictionary])?[0]
+        mediaUrl = firstDictionary?["media_url_https"] as? String
+        if dictionary["retweeted_status"] != nil{
+            isRetweeted = true
+        }
         
     }
     
