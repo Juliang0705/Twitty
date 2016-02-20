@@ -63,7 +63,7 @@ Swift has updated but the tutorial hasn't which caused some confusions at the be
     
 - - -
 
-# Project 5 - *Twitter Client*
+# Project 5 - *Twitter Client(Continue)*
 
 Time spent: **13** hours spent in total
 
@@ -95,6 +95,7 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [x] User can see media in the detail tweet view
+- [x] User can follow/unfollow others
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
