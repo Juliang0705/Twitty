@@ -21,6 +21,8 @@ func convertTimeToString(number: Int) -> String{
     }
 }
 
+weak var tweetViewControllerReference: TweetViewController?
+
 class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SideBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
@@ -35,7 +37,7 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if (tableView.delegate != nil){
-         //   self.onRefresh()
+            self.tableView.reloadData()
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusBarTappedAction:", name: statusBarTappedNotification, object: nil)
     }
@@ -46,6 +48,7 @@ class TweetViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tweetViewControllerReference = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension

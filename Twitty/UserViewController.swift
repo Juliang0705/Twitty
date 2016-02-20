@@ -323,8 +323,6 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         backgroundImageView.subviews.forEach({$0.removeFromSuperview()})
         backgroundImageView.layer.zPosition = 0
-        backgroundImageView.frame.origin.x = 0
-        backgroundImageView.frame.origin.y = 0
     }
     
 }

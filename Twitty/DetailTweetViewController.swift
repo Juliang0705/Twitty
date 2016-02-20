@@ -46,9 +46,11 @@ class DetailTweetViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 cell.profileImageView.setImageWithURL(NSURL(string: tweet.user!.profileImageUrl!)!)
                 cell.screenNameLabel.text = tweet.user!.screenname!
-                cell.nameLabel.text = tweet.user!.name!
+                cell.nameLabel.text = "@\(tweet.user!.name!)"
                 cell.textView.text = tweet.text
-                cell.CreatedAtLabel.text = tweet.createdAtString!
+                var timeString = tweet.createdAtString!
+                timeString.removeRange(Range<String.Index>(start: timeString.endIndex.advancedBy(-10),end: timeString.endIndex))
+                cell.CreatedAtLabel.text = timeString
                 if let media = tweet.mediaUrl{
                     let heightConstraint = NSLayoutConstraint(item: cell.mediaImageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 200)
                     cell.contentView.addConstraint(heightConstraint)

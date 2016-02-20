@@ -35,9 +35,11 @@ class SendTweetViewController: UIViewController,UITextViewDelegate {
     }
     
     func sendButtonClicked(sender: UIBarButtonItem) {
-        TwitterClient.sharedInstance.sendTweet(textView.text, params: nil) { (response, error) -> () in
+        TwitterClient.sharedInstance.sendTweet(textView.text, params: nil) { (tweet, error) -> () in
             if (error == nil){
+                tweetViewControllerReference?.tweets?.insert(tweet!, atIndex: 0)
                 self.navigationController?.popViewControllerAnimated(true)
+                
             }else{
                 let alert = UIAlertController(title: nil, message: "Tweet Update Failed", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))

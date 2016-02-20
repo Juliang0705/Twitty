@@ -114,7 +114,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func sendTweet(tweet: String, params: NSDictionary?, completion: (response: NSDictionary?,error :NSError?)->()) {
+    func sendTweet(tweet: String, params: NSDictionary?, completion: (tweet: Tweet?,error :NSError?)->()) {
         var parameters = [String: AnyObject]()
         parameters["status"] = tweet
         if let params = params{
@@ -124,11 +124,11 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
         TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject!) -> Void in
             
-                completion(response: response as? NSDictionary,error: nil)
+                completion(tweet: Tweet(dictionary: (response as! NSDictionary)),error: nil)
 
             }) { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
                 
-                completion(response: nil,error: error)
+                completion(tweet: nil,error: error)
         }
         
     }
